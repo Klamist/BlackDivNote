@@ -8,10 +8,11 @@ using Comfort.Common;
 
 namespace BlackDivInfo
 {
-    [BepInPlugin("ciallo.blackdivinfo", "Black Div Notifier", "1.0.0")]
+    [BepInPlugin("ciallo.blackdivinfo", "Black Div Notifier", "1.1.0")]
     public class BlackDivInfoPlugin : BaseUnityPlugin
     {
         public static bool blackDivSpawned = false;
+        public static bool wedgeSpawned = false;
 
         private void Awake()
         {
@@ -25,12 +26,24 @@ namespace BlackDivInfo
             {
                 ShowBlackDivMessage();
             }
+            if (wedgeSpawned && UnityInput.Current.GetKeyDown(KeyCode.O))
+            {
+                ShowWedgeMessage();
+            }
         }
 
         public static void ShowBlackDivMessage()
         {
             NotificationManagerClass.DisplayMessageNotification(
-                "Black Division have arrived, they'll catch you!",
+                "Black Division have arrived",
+                ENotificationDurationType.Long
+            );
+        }
+
+        public static void ShowWedgeMessage()
+        {
+            NotificationManagerClass.DisplayMessageNotification(
+                "BOSS Wedge is here!",
                 ENotificationDurationType.Long
             );
         }
@@ -54,6 +67,12 @@ namespace BlackDivInfo
                 BlackDivInfoPlugin.blackDivSpawned = true;
                 BlackDivInfoPlugin.ShowBlackDivMessage();
             }
+
+            if (role == (WildSpawnType)848424)
+            {
+                BlackDivInfoPlugin.wedgeSpawned = true;
+                BlackDivInfoPlugin.ShowWedgeMessage();
+            }
         }
     }
 
@@ -65,6 +84,7 @@ namespace BlackDivInfo
         public static void PatchPrefix()
         {
             BlackDivInfoPlugin.blackDivSpawned = false;
+            BlackDivInfoPlugin.wedgeSpawned = false;
 
             if (Singleton<GameWorld>.Instantiated)
             {
@@ -79,6 +99,7 @@ namespace BlackDivInfo
         public void OnDestroy()
         {
             BlackDivInfoPlugin.blackDivSpawned = false;
+            BlackDivInfoPlugin.wedgeSpawned = false;
         }
     }
 }
