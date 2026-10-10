@@ -8,7 +8,7 @@ using Comfort.Common;
 
 namespace BlackDivInfo
 {
-    [BepInPlugin("ciallo.blackdivinfo", "Black Div Notifier", "1.1.0")]
+    [BepInPlugin("ciallo.blackdivinfo", "Black Div Notifier", "1.3.0")]
     public class BlackDivInfoPlugin : BaseUnityPlugin
     {
         public static bool blackDivSpawned = false;
@@ -34,7 +34,7 @@ namespace BlackDivInfo
 
         public static void ShowBlackDivMessage()
         {
-            NotificationManagerClass.DisplayMessageNotification(
+            NotificationManager.DisplayMessageNotification(
                 "Black Division have arrived",
                 ENotificationDurationType.Long
             );
@@ -42,7 +42,7 @@ namespace BlackDivInfo
 
         public static void ShowWedgeMessage()
         {
-            NotificationManagerClass.DisplayMessageNotification(
+            NotificationManager.DisplayMessageNotification(
                 "BOSS Wedge is here!",
                 ENotificationDurationType.Long
             );
